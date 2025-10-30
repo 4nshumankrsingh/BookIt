@@ -8,7 +8,7 @@ const LoadingSpinner = ({ size = 'medium', text = 'Loading...' }) => {
   return (
     <div className="flex flex-col items-center justify-center space-y-4">
       <div 
-        className={`loading-spinner ${sizeClasses[size]}`}
+        className={`loading-spinner ${sizeClasses[size]} border-t-blue-600`}
       ></div>
       {text && <p className="text-gray-600 font-medium">{text}</p>}
     </div>
