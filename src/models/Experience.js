@@ -6,7 +6,8 @@ const slotSchema = new mongoose.Schema({
   endTime: { type: String, required: true },
   maxParticipants: { type: Number, required: true },
   bookedParticipants: { type: Number, default: 0 },
-  price: { type: Number, required: true }
+  price: { type: Number, required: true },
+  isAvailable: { type: Boolean, default: true }
 });
 
 const experienceSchema = new mongoose.Schema({
@@ -18,9 +19,23 @@ const experienceSchema = new mongoose.Schema({
   category: { type: String, required: true },
   rating: { type: Number, required: true },
   reviewCount: { type: Number, required: true },
-  slots: [slotSchema]
+  basePrice: { type: Number, required: true }, // Added base price
+  included: [{ type: String }], // Added inclusions
+  highlights: [{ type: String }], // Added highlights
+  meetingPoint: { type: String }, // Added meeting point
+  slots: [slotSchema],
+  isActive: { type: Boolean, default: true }
 }, {
   timestamps: true
+});
+
+// Virtual for available slots
+experienceSchema.virtual('availableSlots').get(function() {
+  return this.slots.filter(slot => 
+    slot.isAvailable && 
+    slot.bookedParticipants < slot.maxParticipants &&
+    slot.date >= new Date()
+  );
 });
 
 module.exports = mongoose.models.Experience || mongoose.model('Experience', experienceSchema);
