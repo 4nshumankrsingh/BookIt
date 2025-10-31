@@ -10,9 +10,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
+import { toast } from 'sonner';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import PriceSummary from '@/components/PriceSummary';
 import PromoCodeInput from '@/components/PromoCodeInput';
+import { validateCheckoutForm } from '@/lib/validation';
 
 export default function Checkout() {
   const searchParams = useSearchParams();
@@ -31,6 +33,7 @@ export default function Checkout() {
   });
 
   const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
 
   const experienceId = searchParams.get('experienceId');
   const slotId = searchParams.get('slotId');
@@ -61,35 +64,14 @@ export default function Checkout() {
       if (slot) {
         setSelectedSlot(slot);
       } else {
+        toast.error('Selected time slot is no longer available');
         router.push('/');
       }
     } catch (error) {
       console.error('Error fetching experience:', error);
+      toast.error('Failed to load experience details');
       router.push('/');
     }
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    } else if (!/^\d{10,}$/.test(formData.phone.replace(/\D/g, ''))) {
-      newErrors.phone = 'Phone number is invalid';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
 
   const handleInputChange = (e) => {
@@ -98,6 +80,14 @@ export default function Checkout() {
       ...prev,
       [name]: value
     }));
+    
+    // Mark field as touched
+    if (!touched[name]) {
+      setTouched(prev => ({
+        ...prev,
+        [name]: true
+      }));
+    }
     
     // Clear error when user starts typing
     if (errors[name]) {
@@ -108,18 +98,48 @@ export default function Checkout() {
     }
   };
 
+  const handleInputBlur = (e) => {
+    const { name } = e.target;
+    setTouched(prev => ({
+      ...prev,
+      [name]: true
+    }));
+
+    // Validate single field
+    const fieldErrors = validateCheckoutForm({ [name]: formData[name] }, true);
+    if (fieldErrors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: fieldErrors[name]
+      }));
+    }
+  };
+
   const handlePromoApply = (promoData) => {
     setPromoApplied(promoData);
+    toast.success(`Promo code applied! $${promoData.discount} discount`);
   };
 
   const handlePromoRemove = () => {
     setPromoApplied(null);
+    toast.info('Promo code removed');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!validateForm()) {
+    // Mark all fields as touched
+    const allTouched = Object.keys(formData).reduce((acc, key) => {
+      acc[key] = true;
+      return acc;
+    }, {});
+    setTouched(allTouched);
+
+    // Validate form
+    const validationErrors = validateCheckoutForm(formData);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      toast.error('Please fix the errors in the form');
       return;
     }
 
@@ -141,12 +161,15 @@ export default function Checkout() {
       if (response.data.success) {
         // Store booking data for the result page
         localStorage.setItem(`booking_${response.data.booking.id}`, JSON.stringify(response.data.booking));
-        router.push(`/bookings/${response.data.booking.id}`);
+        toast.success('Booking confirmed! Redirecting...');
+        setTimeout(() => {
+          router.push(`/bookings/${response.data.booking.id}`);
+        }, 1000);
       }
     } catch (error) {
       console.error('Booking error:', error);
       const errorMessage = error.response?.data?.error || 'Failed to create booking. Please try again.';
-      alert(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -220,11 +243,12 @@ export default function Checkout() {
                           required
                           value={formData.name}
                           onChange={handleInputChange}
+                          onBlur={handleInputBlur}
                           placeholder="Enter your full name"
-                          className={errors.name ? 'border-red-500' : ''}
+                          className={errors.name ? 'border-red-500 focus:border-red-500' : ''}
                         />
-                        {errors.name && (
-                          <CardDescription className="text-red-600">{errors.name}</CardDescription>
+                        {touched.name && errors.name && (
+                          <CardDescription className="text-red-600 text-sm">{errors.name}</CardDescription>
                         )}
                       </div>
 
@@ -237,11 +261,12 @@ export default function Checkout() {
                           required
                           value={formData.email}
                           onChange={handleInputChange}
+                          onBlur={handleInputBlur}
                           placeholder="Enter your email"
-                          className={errors.email ? 'border-red-500' : ''}
+                          className={errors.email ? 'border-red-500 focus:border-red-500' : ''}
                         />
-                        {errors.email && (
-                          <CardDescription className="text-red-600">{errors.email}</CardDescription>
+                        {touched.email && errors.email && (
+                          <CardDescription className="text-red-600 text-sm">{errors.email}</CardDescription>
                         )}
                       </div>
 
@@ -254,11 +279,12 @@ export default function Checkout() {
                           required
                           value={formData.phone}
                           onChange={handleInputChange}
+                          onBlur={handleInputBlur}
                           placeholder="Enter your phone number"
-                          className={errors.phone ? 'border-red-500' : ''}
+                          className={errors.phone ? 'border-red-500 focus:border-red-500' : ''}
                         />
-                        {errors.phone && (
-                          <CardDescription className="text-red-600">{errors.phone}</CardDescription>
+                        {touched.phone && errors.phone && (
+                          <CardDescription className="text-red-600 text-sm">{errors.phone}</CardDescription>
                         )}
                       </div>
                     </div>

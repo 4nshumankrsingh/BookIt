@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Experience from '@/models/Experience';
+import { geocodeAddress } from '@/lib/geocode';
 
 export async function GET(request) {
   try {
@@ -62,7 +63,7 @@ export async function GET(request) {
         hasAvailableSlots: availableSlots.length > 0,
         availableSlotsCount: availableSlots.length
       };
-    }).filter(exp => exp.hasAvailableSlots); // Only return experiences with available slots
+    }).filter(exp => exp.hasAvailableSlots);
 
     // Get total count for pagination
     const total = await Experience.countDocuments(filter);
@@ -82,6 +83,53 @@ export async function GET(request) {
     console.error('Failed to fetch experiences:', error);
     return NextResponse.json(
       { error: 'Failed to fetch experiences' },
+      { status: 500 }
+    );
+  }
+}
+
+// Add new experience with geocoding
+export async function POST(request) {
+  try {
+    await connectDB();
+    const body = await request.json();
+    
+    const { title, description, image, location, duration, category, basePrice, slots } = body;
+
+    // Geocode the location to get coordinates
+    let geocodedLocation = null;
+    try {
+      geocodedLocation = await geocodeAddress(location);
+    } catch (error) {
+      console.error('Geocoding failed:', error);
+      // Continue without coordinates
+    }
+
+    const experience = new Experience({
+      title,
+      description,
+      image,
+      location,
+      duration,
+      category,
+      basePrice,
+      slots,
+      coordinates: geocodedLocation ? {
+        lat: geocodedLocation.lat,
+        lng: geocodedLocation.lng
+      } : undefined
+    });
+
+    await experience.save();
+
+    return NextResponse.json(
+      { success: true, experience },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error('Failed to create experience:', error);
+    return NextResponse.json(
+      { error: 'Failed to create experience' },
       { status: 500 }
     );
   }
