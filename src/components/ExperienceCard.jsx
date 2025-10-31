@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Star, MapPin, Clock, Users, Heart, ArrowRight } from 'lucide-react';
+import { Star, MapPin, Clock, Users, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -31,62 +31,66 @@ const ExperienceCard = ({ experience }) => {
   };
 
   return (
-    <Card className="bookit-experience-card bookit-hover-lift group h-full flex flex-col overflow-hidden">
+    <Card className="group relative overflow-hidden transition-all duration-300 hover:shadow-xl border border-gray-200 hover:border-blue-300 h-full flex flex-col">
       {/* Image Container */}
       <div className="relative h-48 w-full overflow-hidden">
         <Image
           src={getImageUrl(experience.title)}
           alt={experience.title}
           fill
-          className="bookit-experience-image object-cover"
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent" />
         
-        {/* Wishlist Button */}
-        <Button 
-          variant="ghost" 
-          size="icon"
-          className="absolute top-3 right-3 z-10 w-8 h-8 bg-background/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-background hover:shadow-md transition-all duration-200 opacity-0 group-hover:opacity-100"
-        >
-          <Heart className="w-4 h-4 text-muted-foreground group-hover:text-red-500 transition-colors duration-200" />
-        </Button>
-
         {/* Category and Availability Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-2">
-          <Badge className="bookit-badge-primary backdrop-blur-sm font-medium">
+          <Badge className="bg-white/90 backdrop-blur-sm text-gray-800 font-medium border-0">
             {experience.category}
           </Badge>
-          <Badge variant={availability.variant} className="backdrop-blur-sm font-medium">
+          <Badge variant={availability.variant} className="backdrop-blur-sm font-medium border-0">
             {availability.text}
           </Badge>
         </div>
 
         {/* Rating Badge */}
         <div className="absolute bottom-3 left-3">
-          <Badge className="bg-background/90 backdrop-blur-sm text-foreground font-medium">
-            <Star className="w-3 h-3 text-amber-500 fill-current mr-1" />
+          <Badge className="bg-white/90 backdrop-blur-sm text-gray-800 font-medium border-0">
+            <Star className="w-3 h-3 text-yellow-500 fill-current mr-1" />
             {experience.rating}
           </Badge>
         </div>
       </div>
 
       <CardHeader className="pb-3 flex-1">
+        {/* Rating and Reviews */}
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 bg-blue-50 px-2 py-1 rounded-lg">
+              <Star className="w-3 h-3 text-yellow-500 fill-current" />
+              <span className="text-sm font-semibold text-gray-900">{experience.rating}</span>
+            </div>
+            <CardDescription className="text-sm">
+              ({experience.reviewCount} reviews)
+            </CardDescription>
+          </div>
+        </div>
+
         {/* Title */}
-        <CardTitle className="bookit-heading-sm line-clamp-2 leading-tight group-hover:text-bookit-600 transition-colors duration-200 mb-2">
+        <CardTitle className="text-lg font-bold text-gray-900 line-clamp-2 leading-tight group-hover:text-blue-600 transition-colors duration-200 mb-2">
           {experience.title}
         </CardTitle>
 
         {/* Location */}
-        <div className="flex items-center text-muted-foreground mb-3">
+        <div className="flex items-center text-gray-600 mb-3">
           <MapPin className="w-4 h-4 mr-2" />
-          <CardDescription className="bookit-body-sm">{experience.location}</CardDescription>
+          <CardDescription className="text-sm">{experience.location}</CardDescription>
         </div>
 
         {/* Description */}
-        <CardDescription className="bookit-body-sm line-clamp-2 leading-relaxed mb-4">
+        <CardDescription className="text-sm line-clamp-2 leading-relaxed mb-4">
           {experience.description}
         </CardDescription>
       </CardHeader>
@@ -94,7 +98,7 @@ const ExperienceCard = ({ experience }) => {
       <CardContent className="pb-4 pt-0">
         {/* Details */}
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-4 bookit-body-sm text-muted-foreground">
+          <div className="flex items-center gap-4 text-sm text-gray-500">
             <div className="flex items-center">
               <Clock className="w-4 h-4 mr-1" />
               {experience.duration}
@@ -109,13 +113,13 @@ const ExperienceCard = ({ experience }) => {
 
       <CardFooter className="pt-0 mt-auto">
         {/* Price and CTA */}
-        <div className="flex items-center justify-between w-full pt-4 border-t border-border">
+        <div className="flex items-center justify-between w-full pt-4 border-t border-gray-200">
           <div>
-            <div className="bookit-price-tag">${lowestPrice}</div>
-            <CardDescription className="bookit-caption">per person</CardDescription>
+            <div className="text-2xl font-bold text-gray-900">${lowestPrice}</div>
+            <CardDescription className="text-sm">per person</CardDescription>
           </div>
           
-          <Button asChild className="bookit-btn-primary group/btn">
+          <Button asChild className="bg-blue-600 text-white hover:bg-blue-700 transition-all duration-200 group/btn shadow-md hover:shadow-lg">
             <Link href={`/experiences/${experience._id}`} className="flex items-center">
               <span>View Details</span>
               <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-200" />
