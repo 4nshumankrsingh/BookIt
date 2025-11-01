@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
-import { ArrowLeft, Shield, Check } from 'lucide-react';
+import { ArrowLeft, Shield, Check, Plane } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import PriceSummary from '@/components/PriceSummary';
 import PromoCodeInput from '@/components/PromoCodeInput';
+import FlightResults from '@/components/FlightResults';
 import { validateCheckoutForm } from '@/lib/validation';
 
 export default function Checkout() {
@@ -24,6 +25,8 @@ export default function Checkout() {
   const [experience, setExperience] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [promoApplied, setPromoApplied] = useState(null);
+  const [selectedFlight, setSelectedFlight] = useState(null);
+  const [tripId, setTripId] = useState(null);
   
   const [formData, setFormData] = useState({
     name: '',
@@ -37,6 +40,8 @@ export default function Checkout() {
 
   const experienceId = searchParams.get('experienceId');
   const slotId = searchParams.get('slotId');
+  const flightId = searchParams.get('flightId');
+  const tripParam = searchParams.get('tripId');
   const initialParticipants = parseInt(searchParams.get('participants')) || 1;
 
   useEffect(() => {
@@ -45,7 +50,11 @@ export default function Checkout() {
     } else {
       router.push('/');
     }
-  }, [experienceId, slotId, router]);
+
+    if (tripParam) {
+      setTripId(tripParam);
+    }
+  }, [experienceId, slotId, tripParam, router]);
 
   useEffect(() => {
     setFormData(prev => ({ ...prev, participants: initialParticipants }));
@@ -57,7 +66,6 @@ export default function Checkout() {
       const exp = response.data;
       setExperience(exp);
       
-      // Find the selected slot from all available slots
       const allSlots = Object.values(exp.slotsByDate).flat();
       const slot = allSlots.find(s => s._id === slotId);
       
@@ -81,7 +89,6 @@ export default function Checkout() {
       [name]: value
     }));
     
-    // Mark field as touched
     if (!touched[name]) {
       setTouched(prev => ({
         ...prev,
@@ -89,7 +96,6 @@ export default function Checkout() {
       }));
     }
     
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -105,7 +111,6 @@ export default function Checkout() {
       [name]: true
     }));
 
-    // Validate single field
     const fieldErrors = validateCheckoutForm({ [name]: formData[name] }, true);
     if (fieldErrors[name]) {
       setErrors(prev => ({
@@ -125,17 +130,20 @@ export default function Checkout() {
     toast.info('Promo code removed');
   };
 
+  const handleFlightSelect = (flight) => {
+    setSelectedFlight(flight);
+    toast.success('Flight added to your booking');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Mark all fields as touched
     const allTouched = Object.keys(formData).reduce((acc, key) => {
       acc[key] = true;
       return acc;
     }, {});
     setTouched(allTouched);
 
-    // Validate form
     const validationErrors = validateCheckoutForm(formData);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -146,7 +154,7 @@ export default function Checkout() {
     setLoading(true);
 
     try {
-      const response = await axios.post('/api/bookings', {
+      const bookingData = {
         experienceId,
         slotId,
         userInfo: {
@@ -155,12 +163,29 @@ export default function Checkout() {
           phone: formData.phone
         },
         participants: formData.participants,
-        promoCode: promoApplied ? promoApplied.promo.code : null
-      });
+        promoCode: promoApplied ? promoApplied.promo.code : null,
+        ...(tripId && { tripId }),
+        ...(selectedFlight && { flight: selectedFlight })
+      };
+
+      const response = await axios.post('/api/bookings', bookingData);
 
       if (response.data.success) {
-        // Store booking data for the result page
         localStorage.setItem(`booking_${response.data.booking.id}`, JSON.stringify(response.data.booking));
+        
+        // If flight was selected, create flight booking
+        if (selectedFlight) {
+          await axios.post('/api/flights/bookings', {
+            flight: selectedFlight,
+            userInfo: {
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone
+            },
+            tripId: tripId || response.data.booking.tripId
+          });
+        }
+
         toast.success('Booking confirmed! Redirecting...');
         setTimeout(() => {
           router.push(`/bookings/${response.data.booking.id}`);
@@ -220,7 +245,9 @@ export default function Checkout() {
         <Card className="mb-8 border-0 shadow-none bg-transparent">
           <CardContent className="p-0">
             <CardTitle className="text-3xl mb-2">Complete Your Booking</CardTitle>
-            <CardDescription>Enter your details to secure your spot</CardDescription>
+            <CardDescription>
+              {selectedFlight ? 'Experience + Flight Package' : 'Enter your details to secure your spot'}
+            </CardDescription>
           </CardContent>
         </Card>
 
@@ -230,6 +257,32 @@ export default function Checkout() {
             <Card>
               <CardContent className="p-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Flight Section */}
+                  {selectedFlight && (
+                    <>
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <div className="flex items-center mb-2">
+                          <Plane className="w-5 h-5 text-blue-600 mr-2" />
+                          <CardTitle className="text-lg">Flight Included</CardTitle>
+                        </div>
+                        <div className="text-sm text-blue-700">
+                          {selectedFlight.airline} {selectedFlight.flightNumber} • 
+                          {selectedFlight.departure.airport} → {selectedFlight.arrival.airport}
+                        </div>
+                        <Button 
+                          type="button" 
+                          variant="outline" 
+                          size="sm" 
+                          className="mt-2"
+                          onClick={() => setSelectedFlight(null)}
+                        >
+                          Remove Flight
+                        </Button>
+                      </div>
+                      <Separator />
+                    </>
+                  )}
+
                   {/* Personal Information */}
                   <div>
                     <CardTitle className="text-xl mb-4">Personal Information</CardTitle>
@@ -344,7 +397,7 @@ export default function Checkout() {
                         <span className="ml-2">Processing...</span>
                       </div>
                     ) : (
-                      `Complete Booking - $${final}`
+                      `Complete Booking - $${final}${selectedFlight ? ' + Flight' : ''}`
                     )}
                   </Button>
 
@@ -356,6 +409,28 @@ export default function Checkout() {
                 </form>
               </CardContent>
             </Card>
+
+            {/* Add Flight Section */}
+            {!selectedFlight && (
+              <Card className="mt-6">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Plane className="w-5 h-5 mr-2" />
+                    Add Flight to Your Trip
+                  </CardTitle>
+                  <CardDescription>
+                    Book your flights along with this experience for a complete travel package
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button asChild variant="outline" className="w-full">
+                    <Link href={`/flights?experienceId=${experienceId}&slotId=${slotId}&tripId=${tripId}`}>
+                      Search Flights
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           {/* Right Column - Summary */}
@@ -369,6 +444,7 @@ export default function Checkout() {
                 basePrice={base}
                 discount={discount}
                 finalPrice={final}
+                selectedFlight={selectedFlight}
               />
             </div>
           </div>

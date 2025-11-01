@@ -15,6 +15,10 @@ const bookingSchema = new mongoose.Schema({
     ref: 'User', 
     required: true 
   },
+  tripId: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Trip' 
+  },
   userInfo: {
     name: { type: String, required: true },
     email: { type: String, required: true },
@@ -53,7 +57,7 @@ const bookingSchema = new mongoose.Schema({
   bookingReference: { 
     type: String, 
     unique: true 
-  } // Added booking reference
+  }
 }, {
   timestamps: true
 });
