@@ -1,8 +1,8 @@
 {
-  "name": "bookit",
+  "name": "nexis",
   "version": "1.0.0",
   "private": true,
-  "description": "BookIt - Travel Experiences Booking Platform for India",
+  "description": "Nexis - Travel Experiences & Flight Booking Platform",
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build --webpack",
@@ -50,11 +50,12 @@
     "travel",
     "booking",
     "experiences",
-    "india",
+    "flights",
+    "destinations",
     "nextjs",
     "mongodb"
   ],
-  "author": "BookIt Team",
+  "author": "Nexis Team",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"

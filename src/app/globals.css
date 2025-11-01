@@ -58,8 +58,8 @@ a:hover {
   color: hsl(var(--primary));
 }
 
-/* BookIt Design System Components */
-.bookit-container {
+/* Nexis Design System Components */
+.nexis-container {
   max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
@@ -68,57 +68,57 @@ a:hover {
 }
 
 @media (min-width: 640px) {
-  .bookit-container {
+  .nexis-container {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .bookit-container {
+  .nexis-container {
     padding-left: 2rem;
     padding-right: 2rem;
   }
 }
 
-.bookit-section {
+.nexis-section {
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
 
 @media (min-width: 1024px) {
-  .bookit-section {
+  .nexis-section {
     padding-top: 6rem;
     padding-bottom: 6rem;
   }
 }
 
-.bookit-section-sm {
+.nexis-section-sm {
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
 
 @media (min-width: 1024px) {
-  .bookit-section-sm {
+  .nexis-section-sm {
     padding-top: 4rem;
     padding-bottom: 4rem;
   }
 }
 
-.bookit-section-lg {
+.nexis-section-lg {
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
 
 @media (min-width: 1024px) {
-  .bookit-section-lg {
+  .nexis-section-lg {
     padding-top: 8rem;
     padding-bottom: 8rem;
   }
 }
 
 /* Typography Scale */
-.bookit-display-lg {
+.nexis-display-lg {
   font-size: 3rem;
   font-weight: 700;
   letter-spacing: -0.025em;
@@ -126,18 +126,18 @@ a:hover {
 }
 
 @media (min-width: 1024px) {
-  .bookit-display-lg {
+  .nexis-display-lg {
     font-size: 3.75rem;
   }
 }
 
 @media (min-width: 1280px) {
-  .bookit-display-lg {
+  .nexis-display-lg {
     font-size: 4.5rem;
   }
 }
 
-.bookit-display-md {
+.nexis-display-md {
   font-size: 2.25rem;
   font-weight: 700;
   letter-spacing: -0.025em;
@@ -145,18 +145,18 @@ a:hover {
 }
 
 @media (min-width: 1024px) {
-  .bookit-display-md {
+  .nexis-display-md {
     font-size: 3rem;
   }
 }
 
 @media (min-width: 1280px) {
-  .bookit-display-md {
+  .nexis-display-md {
     font-size: 3.75rem;
   }
 }
 
-.bookit-display-sm {
+.nexis-display-sm {
   font-size: 1.875rem;
   font-weight: 700;
   letter-spacing: -0.025em;
@@ -164,66 +164,66 @@ a:hover {
 }
 
 @media (min-width: 1024px) {
-  .bookit-display-sm {
+  .nexis-display-sm {
     font-size: 2.25rem;
   }
 }
 
-.bookit-heading-lg {
+.nexis-heading-lg {
   font-size: 1.5rem;
   font-weight: 700;
 }
 
 @media (min-width: 1024px) {
-  .bookit-heading-lg {
+  .nexis-heading-lg {
     font-size: 1.875rem;
   }
 }
 
-.bookit-heading-md {
+.nexis-heading-md {
   font-size: 1.25rem;
   font-weight: 600;
 }
 
 @media (min-width: 1024px) {
-  .bookit-heading-md {
+  .nexis-heading-md {
     font-size: 1.5rem;
   }
 }
 
-.bookit-heading-sm {
+.nexis-heading-sm {
   font-size: 1.125rem;
   font-weight: 600;
 }
 
 @media (min-width: 1024px) {
-  .bookit-heading-sm {
+  .nexis-heading-sm {
     font-size: 1.25rem;
   }
 }
 
-.bookit-body-lg {
+.nexis-body-lg {
   font-size: 1.125rem;
   line-height: 1.75;
 }
 
-.bookit-body-md {
+.nexis-body-md {
   font-size: 1rem;
   line-height: 1.75;
 }
 
-.bookit-body-sm {
+.nexis-body-sm {
   font-size: 0.875rem;
   line-height: 1.75;
 }
 
-.bookit-caption {
+.nexis-caption {
   font-size: 0.75rem;
   color: hsl(var(--muted-foreground));
 }
 
 /* Button Styles */
-.bookit-btn {
+.nexis-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -234,72 +234,72 @@ a:hover {
   outline: none;
 }
 
-.bookit-btn:focus-visible {
+.nexis-btn:focus-visible {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
 }
 
-.bookit-btn:disabled {
+.nexis-btn:disabled {
   pointer-events: none;
   opacity: 0.5;
 }
 
-.bookit-btn-primary {
+.nexis-btn-primary {
   background: hsl(var(--primary));
   color: white;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.bookit-btn-primary:hover {
+.nexis-btn-primary:hover {
   background: hsl(221 83% 45%);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   transform: scale(1.05);
 }
 
-.bookit-btn-secondary {
+.nexis-btn-secondary {
   background: hsl(var(--secondary));
   color: hsl(var(--secondary-foreground));
   border: 1px solid hsl(var(--input));
 }
 
-.bookit-btn-secondary:hover {
+.nexis-btn-secondary:hover {
   background: hsl(var(--accent));
 }
 
-.bookit-btn-ghost {
+.nexis-btn-ghost {
   background: transparent;
 }
 
-.bookit-btn-ghost:hover {
+.nexis-btn-ghost:hover {
   background: hsl(var(--accent));
   color: hsl(var(--accent-foreground));
 }
 
-.bookit-btn-outline {
+.nexis-btn-outline {
   border: 1px solid hsl(var(--primary));
   color: hsl(var(--primary));
   background: transparent;
 }
 
-.bookit-btn-outline:hover {
+.nexis-btn-outline:hover {
   background: hsl(var(--primary));
   color: white;
 }
 
-.bookit-btn-lg {
+.nexis-btn-lg {
   height: 3rem;
   padding-left: 2rem;
   padding-right: 2rem;
   font-size: 1rem;
 }
 
-.bookit-btn-md {
+.nexis-btn-md {
   height: 2.5rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
 
-.bookit-btn-sm {
+.nexis-btn-sm {
   height: 2rem;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -307,7 +307,7 @@ a:hover {
 }
 
 /* Card Styles */
-.bookit-card {
+.nexis-card {
   background: hsl(var(--card));
   color: hsl(var(--card-foreground));
   border-radius: 0.75rem;
@@ -316,24 +316,24 @@ a:hover {
   transition: all 0.3s ease;
 }
 
-.bookit-card:hover {
+.nexis-card:hover {
   box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
-.bookit-card-lg {
+.nexis-card-lg {
   padding: 2rem;
 }
 
-.bookit-card-md {
+.nexis-card-md {
   padding: 1.5rem;
 }
 
-.bookit-card-sm {
+.nexis-card-sm {
   padding: 1rem;
 }
 
 /* Form Styles */
-.bookit-input {
+.nexis-input {
   display: flex;
   height: 2.5rem;
   width: 100%;
@@ -346,17 +346,17 @@ a:hover {
   transition: border-color 0.2s ease;
 }
 
-.bookit-input:focus {
+.nexis-input:focus {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
 }
 
-.bookit-input:disabled {
+.nexis-input:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.bookit-textarea {
+.nexis-textarea {
   display: flex;
   min-height: 5rem;
   width: 100%;
@@ -370,23 +370,23 @@ a:hover {
   transition: border-color 0.2s ease;
 }
 
-.bookit-textarea:focus {
+.nexis-textarea:focus {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
 }
 
-.bookit-textarea:disabled {
+.nexis-textarea:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.bookit-label {
+.nexis-label {
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1;
 }
 
-.bookit-select {
+.nexis-select {
   display: flex;
   height: 2.5rem;
   width: 100%;
@@ -401,18 +401,18 @@ a:hover {
   transition: border-color 0.2s ease;
 }
 
-.bookit-select:focus {
+.nexis-select:focus {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
 }
 
-.bookit-select:disabled {
+.nexis-select:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
 /* Badge Styles */
-.bookit-badge {
+.nexis-badge {
   display: inline-flex;
   align-items: center;
   border-radius: 9999px;
@@ -421,39 +421,39 @@ a:hover {
   font-weight: 500;
 }
 
-.bookit-badge-primary {
+.nexis-badge-primary {
   background: #dbeafe;
   color: #1e40af;
 }
 
-.bookit-badge-success {
+.nexis-badge-success {
   background: #dcfce7;
   color: #166534;
 }
 
-.bookit-badge-warning {
+.nexis-badge-warning {
   background: #fef3c7;
   color: #92400e;
 }
 
-.bookit-badge-error {
+.nexis-badge-error {
   background: #fee2e2;
   color: #991b1b;
 }
 
-.bookit-badge-secondary {
+.nexis-badge-secondary {
   background: hsl(var(--secondary));
   color: hsl(var(--secondary-foreground));
 }
 
 /* Loading States */
-.bookit-loading {
+.nexis-loading {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   background: hsl(var(--muted));
   border-radius: 0.25rem;
 }
 
-.bookit-skeleton {
+.nexis-skeleton {
   background: linear-gradient(to right, transparent 0%, hsl(var(--muted)) 50%, transparent 100%);
   background-size: 200% 100%;
   animation: shimmer 2s infinite linear;
@@ -461,160 +461,160 @@ a:hover {
 }
 
 /* Animation Classes */
-.bookit-fade-in {
+.nexis-fade-in {
   animation: fadeIn 0.5s ease-in-out;
 }
 
-.bookit-slide-up {
+.nexis-slide-up {
   animation: slideUp 0.5s ease-out;
 }
 
-.bookit-slide-down {
+.nexis-slide-down {
   animation: slideDown 0.5s ease-out;
 }
 
-.bookit-scale-in {
+.nexis-scale-in {
   animation: scaleIn 0.2s ease-out;
 }
 
 /* Utility Classes */
-.bookit-gradient-primary {
+.nexis-gradient-primary {
   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
 }
 
-.bookit-gradient-secondary {
+.nexis-gradient-secondary {
   background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
 }
 
-.bookit-gradient-card {
+.nexis-gradient-card {
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
-.bookit-gradient-hero {
+.nexis-gradient-hero {
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(29, 78, 216, 0.9) 100%);
 }
 
-.bookit-text-gradient {
+.nexis-text-gradient {
   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   background-clip: text;
   color: transparent;
 }
 
 /* Focus States */
-.bookit-focus-ring {
+.nexis-focus-ring {
   outline: none;
 }
 
-.bookit-focus-ring:focus {
+.nexis-focus-ring:focus {
   outline: 2px solid hsl(var(--primary));
   outline-offset: 2px;
 }
 
 /* Hover Effects */
-.bookit-hover-scale {
+.nexis-hover-scale {
   transition: transform 0.2s ease;
 }
 
-.bookit-hover-scale:hover {
+.nexis-hover-scale:hover {
   transform: scale(1.05);
 }
 
-.bookit-hover-lift {
+.nexis-hover-lift {
   transition: all 0.3s ease;
 }
 
-.bookit-hover-lift:hover {
+.nexis-hover-lift:hover {
   transform: translateY(-0.25rem);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-.bookit-hover-glow {
+.nexis-hover-glow {
   transition: all 0.3s ease;
 }
 
-.bookit-hover-glow:hover {
+.nexis-hover-glow:hover {
   box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.1);
 }
 
 /* Grid Layouts */
-.bookit-grid {
+.nexis-grid {
   display: grid;
   gap: 1.5rem;
 }
 
-.bookit-grid-cols-1 {
+.nexis-grid-cols-1 {
   grid-template-columns: 1fr;
 }
 
-.bookit-grid-cols-2 {
+.nexis-grid-cols-2 {
   grid-template-columns: 1fr;
 }
 
 @media (min-width: 768px) {
-  .bookit-grid-cols-2 {
+  .nexis-grid-cols-2 {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-.bookit-grid-cols-3 {
+.nexis-grid-cols-3 {
   grid-template-columns: 1fr;
 }
 
 @media (min-width: 640px) {
-  .bookit-grid-cols-3 {
+  .nexis-grid-cols-3 {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media (min-width: 1024px) {
-  .bookit-grid-cols-3 {
+  .nexis-grid-cols-3 {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
-.bookit-grid-cols-4 {
+.nexis-grid-cols-4 {
   grid-template-columns: 1fr;
 }
 
 @media (min-width: 640px) {
-  .bookit-grid-cols-4 {
+  .nexis-grid-cols-4 {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media (min-width: 1024px) {
-  .bookit-grid-cols-4 {
+  .nexis-grid-cols-4 {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
 
 /* Spacing Utilities */
-.bookit-space-y > * + * {
+.nexis-space-y > * + * {
   margin-top: 1.5rem;
 }
 
-.bookit-space-x > * + * {
+.nexis-space-x > * + * {
   margin-left: 1.5rem;
 }
 
-.bookit-space-y-sm > * + * {
+.nexis-space-y-sm > * + * {
   margin-top: 1rem;
 }
 
-.bookit-space-x-sm > * + * {
+.nexis-space-x-sm > * + * {
   margin-left: 1rem;
 }
 
-.bookit-space-y-lg > * + * {
+.nexis-space-y-lg > * + * {
   margin-top: 2rem;
 }
 
-.bookit-space-x-lg > * + * {
+.nexis-space-x-lg > * + * {
   margin-left: 2rem;
 }
 
 /* Loading Spinner */
-.bookit-spinner {
+.nexis-spinner {
   display: inline-block;
   width: 1rem;
   height: 1rem;
@@ -626,51 +626,51 @@ a:hover {
 
 /* Mobile First Responsive */
 @media (max-width: 640px) {
-  .bookit-mobile-padding {
+  .nexis-mobile-padding {
     padding-left: 1rem;
     padding-right: 1rem;
   }
   
-  .bookit-mobile-full {
+  .nexis-mobile-full {
     width: 100%;
   }
   
-  .bookit-mobile-center {
+  .nexis-mobile-center {
     text-align: center;
   }
 }
 
 /* Print Styles */
 @media print {
-  .bookit-no-print {
+  .nexis-no-print {
     display: none !important;
   }
   
-  .bookit-print-break {
+  .nexis-print-break {
     break-inside: avoid;
   }
 }
 
 /* Custom Scrollbar */
-.bookit-scrollbar {
+.nexis-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: hsl(var(--muted)) transparent;
 }
 
-.bookit-scrollbar::-webkit-scrollbar {
+.nexis-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
 
-.bookit-scrollbar::-webkit-scrollbar-track {
+.nexis-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.bookit-scrollbar::-webkit-scrollbar-thumb {
+.nexis-scrollbar::-webkit-scrollbar-thumb {
   background: hsl(var(--muted));
   border-radius: 3px;
 }
 
-.bookit-scrollbar::-webkit-scrollbar-thumb:hover {
+.nexis-scrollbar::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground) / 0.5);
 }
 
@@ -697,30 +697,30 @@ a:hover {
   --ring: 224 76% 48%;
 }
 
-.dark .bookit-gradient-card {
+.dark .nexis-gradient-card {
   background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
 }
 
-.dark .bookit-gradient-primary {
+.dark .nexis-gradient-primary {
   background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
 }
 
-.dark .bookit-badge-primary {
+.dark .nexis-badge-primary {
   background: #1e3a8a;
   color: #dbeafe;
 }
 
-.dark .bookit-badge-success {
+.dark .nexis-badge-success {
   background: #166534;
   color: #dcfce7;
 }
 
-.dark .bookit-badge-warning {
+.dark .nexis-badge-warning {
   background: #92400e;
   color: #fef3c7;
 }
 
-.dark .bookit-badge-error {
+.dark .nexis-badge-error {
   background: #991b1b;
   color: #fee2e2;
 }
@@ -740,7 +740,7 @@ html {
 }
 
 /* Component Styles */
-.bookit-experience-card {
+.nexis-experience-card {
   background: hsl(var(--card));
   color: hsl(var(--card-foreground));
   border-radius: 0.75rem;
@@ -750,33 +750,33 @@ html {
   overflow: hidden;
 }
 
-.bookit-experience-card:hover {
+.nexis-experience-card:hover {
   transform: translateY(-0.25rem);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-.bookit-experience-image {
+.nexis-experience-image {
   width: 100%;
   height: 12rem;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 
-.bookit-experience-card:hover .bookit-experience-image {
+.nexis-experience-card:hover .nexis-experience-image {
   transform: scale(1.1);
 }
 
-.bookit-price-tag {
+.nexis-price-tag {
   font-size: 1.5rem;
   font-weight: 700;
   color: #2563eb;
 }
 
-.dark .bookit-price-tag {
+.dark .nexis-price-tag {
   color: #60a5fa;
 }
 
-.bookit-rating {
+.nexis-rating {
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -784,7 +784,7 @@ html {
   color: #d97706;
 }
 
-.bookit-feature-list {
+.nexis-feature-list {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -792,19 +792,19 @@ html {
   color: hsl(var(--muted-foreground));
 }
 
-.bookit-feature-item {
+.nexis-feature-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.bookit-divider {
+.nexis-divider {
   border-top: 1px solid hsl(var(--border));
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
-.bookit-section-title {
+.nexis-section-title {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 2rem;
@@ -812,7 +812,7 @@ html {
 }
 
 @media (min-width: 1024px) {
-  .bookit-section-title {
+  .nexis-section-title {
     font-size: 1.875rem;
   }
 }
@@ -827,26 +827,26 @@ html {
   }
 }
 
-.bookit-shimmer {
+.nexis-shimmer {
   animation: shimmer 2s infinite linear;
   background: linear-gradient(to right, hsl(var(--muted)) 4%, hsl(var(--accent)) 25%, hsl(var(--muted)) 36%);
   background-size: 1000px 100%;
 }
 
 /* Focus management */
-.bookit-focus-trap:focus-visible {
+.nexis-focus-trap:focus-visible {
   outline: 2px solid hsl(var(--primary));
   outline-offset: 2px;
 }
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  .bookit-fade-in,
-  .bookit-slide-up,
-  .bookit-slide-down,
-  .bookit-scale-in,
-  .bookit-hover-scale,
-  .bookit-hover-lift {
+  .nexis-fade-in,
+  .nexis-slide-up,
+  .nexis-slide-down,
+  .nexis-scale-in,
+  .nexis-hover-scale,
+  .nexis-hover-lift {
     animation: none;
     transition: none;
   }
@@ -854,11 +854,11 @@ html {
 
 /* High contrast support */
 @media (prefers-contrast: high) {
-  .bookit-btn-primary {
+  .nexis-btn-primary {
     border: 2px solid currentColor;
   }
   
-  .bookit-card {
+  .nexis-card {
     border: 2px solid currentColor;
   }
 }

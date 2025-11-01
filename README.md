@@ -1,13 +1,14 @@
-# BookIt - Travel Experiences Booking Platform
+# Nexis - Travel Experiences & Flight Booking Platform
 
-A modern, full-stack web application for booking travel experiences and activities in India.
+A modern, full-stack web application for booking travel experiences and flights worldwide.
 
 ## 🚀 Features
 
-- **Experience Discovery** - Browse and search travel experiences
+- **Experience Discovery** - Browse and search travel experiences globally
+- **Flight Booking** - Search and book flights to destinations worldwide  
 - **Secure Booking** - Complete booking flow with real-time availability
 - **User Authentication** - Email/password and Google OAuth login
-- **Payment Integration** - Razorpay payment gateway for Indian payments
+- **Payment Integration** - Secure payment processing
 - **Location Services** - Google Maps integration for geocoding
 - **Mobile Responsive** - Optimized for all devices
 - **Real-time Validation** - Form validation with user feedback
@@ -18,7 +19,7 @@ A modern, full-stack web application for booking travel experiences and activiti
 - **Backend**: Next.js API Routes, Node.js
 - **Database**: MongoDB with Mongoose ODM
 - **Authentication**: Better Auth with Google OAuth
-- **Payments**: Razorpay
+- **Payments**: Secure payment gateway
 - **Maps**: Google Maps API
 - **UI Components**: Shadcn UI + Radix UI
 - **Deployment**: Vercel
@@ -29,7 +30,7 @@ A modern, full-stack web application for booking travel experiences and activiti
 - MongoDB database
 - Google OAuth credentials
 - Google Maps API key
-- Razorpay account (for payments)
+- Payment gateway account
 
 ## 🚀 Quick Start
 
@@ -37,4 +38,4 @@ A modern, full-stack web application for booking travel experiences and activiti
 
 ```bash
 git clone <repository-url>
-cd bookit
+cd nexis

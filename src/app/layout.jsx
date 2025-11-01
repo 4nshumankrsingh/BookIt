@@ -18,35 +18,35 @@ const inter = Inter({
 // -------------------------------------------------
 export const metadata = {
   title: {
-    default: 'BookIt - Discover & Book Travel Experiences Worldwide',
-    template: '%s | BookIt'
+    default: 'Nexis - Discover & Book Travel Experiences Worldwide',
+    template: '%s | Nexis'
   },
-  description: 'Discover and book amazing travel experiences, adventures, and activities worldwide with BookIt. Secure booking, best prices, and unforgettable memories at iconic landmarks.',
-  keywords: 'travel, booking, experiences, adventures, activities, tours, landmarks, taj mahal, eiffel tower, colosseum',
-  authors: [{ name: 'BookIt Team' }],
-  creator: 'BookIt',
-  publisher: 'BookIt',
-  metadataBase: new URL('https://bookit.com'),
+  description: 'Discover and book amazing travel experiences, adventures, and activities worldwide with Nexis. Secure booking, best prices, and unforgettable memories at iconic landmarks.',
+  keywords: 'travel, booking, experiences, adventures, activities, tours, landmarks, taj mahal, eiffel tower, colosseum, flights, destinations',
+  authors: [{ name: 'Nexis Team' }],
+  creator: 'Nexis',
+  publisher: 'Nexis',
+  metadataBase: new URL('https://nexis.com'),
   openGraph: {
-    title: 'BookIt - Travel Experiences Booking Platform',
-    description: 'Book amazing travel experiences and activities at iconic landmarks worldwide',
+    title: 'Nexis - Travel Experiences & Flight Booking Platform',
+    description: 'Book amazing travel experiences and flights to iconic destinations worldwide',
     type: 'website',
     locale: 'en_US',
-    siteName: 'BookIt',
+    siteName: 'Nexis',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'BookIt - Travel Experiences',
+        alt: 'Nexis - Travel Experiences & Flights',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BookIt - Travel Experiences Booking Platform',
-    description: 'Book amazing travel experiences and activities at iconic landmarks worldwide',
-    creator: '@bookit',
+    title: 'Nexis - Travel Experiences & Flight Booking Platform',
+    description: 'Book amazing travel experiences and flights to iconic destinations worldwide',
+    creator: '@nexis',
     images: ['/twitter-image.jpg'],
   },
   robots: {
@@ -101,14 +101,14 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "BookIt",
-              "description": "Travel Experiences Booking Platform",
-              "url": "https://bookit.com",
-              "logo": "https://bookit.com/logo.png",
+              "name": "Nexis",
+              "description": "Travel Experiences & Flight Booking Platform",
+              "url": "https://nexis.com",
+              "logo": "https://nexis.com/logo.png",
               "sameAs": [
-                "https://twitter.com/bookit",
-                "https://facebook.com/bookit",
-                "https://instagram.com/bookit"
+                "https://twitter.com/nexis",
+                "https://facebook.com/nexis",
+                "https://instagram.com/nexis"
               ]
             })
           }}

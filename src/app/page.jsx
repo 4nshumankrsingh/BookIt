@@ -29,7 +29,7 @@ export default function Home() {
   ];
 
   const featuredDestinations = [
-        {
+    {
       name: 'Colosseum',
       country: 'Italy',
       image: '/rome.jpg',
@@ -47,7 +47,6 @@ export default function Home() {
       image: '/cambodia.jpg',
       experiences: 12
     },
-
     {
       name: 'Santorini',
       country: 'Greece',
@@ -98,70 +97,70 @@ export default function Home() {
       <Header />
       
       {/* Hero Section */}
-<section className="relative pt-20 pb-32 text-white overflow-hidden">
-  {/* Background Image */}
-  <div 
-    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-    style={{
-      backgroundImage: "url('/amsterdam.webp')",
-      backgroundSize: "cover",
-      backgroundPosition: "center"
-    }}
-  >
-    <div className="absolute inset-0 bg-black/30"></div>
-  </div>
-  
-  <div className="relative bookit-container z-10">
-    <div className="text-center max-w-4xl mx-auto">
-      <Badge className="bg-white/20 backdrop-blur-sm text-white border-0 mb-6 px-4 py-2 text-sm">
-        <Zap className="w-3 h-3 mr-1" />
-        Discover Amazing Experiences
-      </Badge>
-      
-      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-        Explore the
-        <span className="block bg-linear-to-r from-white to-blue-100 bg-clip-text text-transparent"> World's Wonders</span>
-      </h1>
-      
-      <p className="text-xl md:text-2xl text-white max-w-2xl mx-auto leading-relaxed mb-12 font-medium">
-        Book unforgettable experiences and flights to iconic destinations worldwide
-      </p>
-      
-      {/* Search Bar */}
-      <div className="max-w-2xl mx-auto">
-        <Card className="bg-white/20 backdrop-blur-sm border-white/30 rounded-2xl shadow-2xl">
-          <CardContent className="p-2">
-            <form onSubmit={handleSearch} className="flex items-center">
-              <div className="flex-1 flex items-center px-4">
-                <Search className="w-5 h-5 text-white mr-3" />
-                <Input
-                  type="text"
-                  placeholder="Search destinations, experiences, flights..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="bg-transparent border-0 text-white placeholder-white/80 text-lg focus-visible:ring-0 focus-visible:ring-offset-0"
-                />
-              </div>
-              <Button 
-                type="submit"
-                className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-xl font-semibold text-lg transition-all"
-              >
-                Search
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  </div>
-  
-  {/* Background Elements */}
-  <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent"></div>
-</section>
+      <section className="relative pt-20 pb-32 text-white overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: "url('/amsterdam.webp')",
+            backgroundSize: "cover",
+            backgroundPosition: "center"
+          }}
+        >
+          <div className="absolute inset-0 bg-black/30"></div>
+        </div>
+        
+        <div className="relative nexis-container z-10">
+          <div className="text-center max-w-4xl mx-auto">
+            <Badge className="bg-white/20 backdrop-blur-sm text-white border-0 mb-6 px-4 py-2 text-sm">
+              <Zap className="w-3 h-3 mr-1" />
+              Discover Amazing Experiences
+            </Badge>
+            
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              Explore the
+              <span className="block bg-linear-to-r from-white to-blue-100 bg-clip-text text-transparent"> World's Wonders</span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-white max-w-2xl mx-auto leading-relaxed mb-12 font-medium">
+              Book unforgettable experiences and flights to iconic destinations worldwide with Nexis
+            </p>
+            
+            {/* Search Bar */}
+            <div className="max-w-2xl mx-auto">
+              <Card className="bg-white/20 backdrop-blur-sm border-white/30 rounded-2xl shadow-2xl">
+                <CardContent className="p-2">
+                  <form onSubmit={handleSearch} className="flex items-center">
+                    <div className="flex-1 flex items-center px-4">
+                      <Search className="w-5 h-5 text-white mr-3" />
+                      <Input
+                        type="text"
+                        placeholder="Search destinations, experiences, flights..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="bg-transparent border-0 text-white placeholder-white/80 text-lg focus-visible:ring-0 focus-visible:ring-offset-0"
+                      />
+                    </div>
+                    <Button 
+                      type="submit"
+                      className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-xl font-semibold text-lg transition-all"
+                    >
+                      Search
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+        
+        {/* Background Elements */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent"></div>
+      </section>
 
       {/* Quick Categories */}
       <section className="py-8 bg-background -mt-20 relative z-10">
-        <div className="bookit-container">
+        <div className="nexis-container">
           <div className="flex overflow-x-auto space-x-3 pb-2 hide-scrollbar">
             {categories.map((category) => (
               <Button
@@ -186,11 +185,11 @@ export default function Home() {
 
       {/* Featured Destinations */}
       <section className="py-16 bg-background">
-        <div className="bookit-container">
+        <div className="nexis-container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Destinations</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Discover iconic landmarks and hidden gems across the globe
+              Discover iconic landmarks and hidden gems across the globe with Nexis
             </p>
           </div>
 
@@ -220,14 +219,14 @@ export default function Home() {
 
       {/* Featured Experiences */}
       <section className="py-16 bg-gray-50">
-        <div className="bookit-container">
+        <div className="nexis-container">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 gap-4">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-3">
                 Featured Experiences
               </h2>
               <p className="text-xl text-muted-foreground">
-                Curated selection of top-rated activities and tours
+                Curated selection of top-rated activities and tours by Nexis
               </p>
             </div>
             <div className="flex items-center space-x-4">
@@ -305,7 +304,7 @@ export default function Home() {
 
       {/* Trust Indicators */}
       <section className="py-16 bg-background">
-        <div className="bookit-container">
+        <div className="nexis-container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Why Travelers Choose Nexis
@@ -323,7 +322,7 @@ export default function Home() {
                 </div>
                 <CardTitle className="text-2xl mb-4">Secure Booking</CardTitle>
                 <CardDescription className="text-lg leading-relaxed">
-                  Your payments are protected with bank-level security and your personal data is always safe with us.
+                  Your payments are protected with bank-level security and your personal data is always safe with Nexis.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -357,7 +356,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="py-20 bg-linear-to-r from-blue-600 to-purple-700 text-white">
-        <div className="bookit-container text-center">
+        <div className="nexis-container text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Ready for Your Next Adventure?
           </h2>
@@ -379,13 +378,13 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-16">
-        <div className="bookit-container">
+        <div className="nexis-container">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-3 mb-6">
-  <Compass className="w-8 h-8 text-blue-400" />
-  <span className="text-2xl font-bold">Nexis</span>
-</div>
+                <Compass className="w-8 h-8 text-blue-400" />
+                <span className="text-2xl font-bold">Nexis</span>
+              </div>
               <p className="text-gray-400 text-lg leading-relaxed">
                 Your trusted partner for amazing travel experiences and adventure bookings worldwide.
               </p>

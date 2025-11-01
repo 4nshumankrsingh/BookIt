@@ -25,18 +25,18 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border supports-backdrop-filter:bg-background/60">
-      <div className="bookit-container">
+      <div className="nexis-container">
         <div className="flex items-center justify-between h-16">
           {/* Logo - Nexis */}
-<Link href="/" className="flex items-center space-x-3 group shrink-0">
-  <Compass className="w-8 h-8 text-blue-600" />
-  <div className="flex flex-col">
-    <span className="text-xl font-bold bg-linear-to-br from-blue-600 to-purple-600 bg-clip-text text-transparent">
-      Nexis
-    </span>
-    <span className="text-xs text-muted-foreground -mt-1">Travel & Experiences</span>
-  </div>
-</Link>
+          <Link href="/" className="flex items-center space-x-3 group shrink-0">
+            <Compass className="w-8 h-8 text-blue-600" />
+            <div className="flex flex-col">
+              <span className="text-xl font-bold bg-linear-to-br from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Nexis
+              </span>
+              <span className="text-xs text-muted-foreground -mt-1">Travel & Experiences</span>
+            </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1 mx-8">
