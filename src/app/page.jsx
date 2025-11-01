@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import Header from '@/components/Header';
 import ExperienceCard from '@/components/ExperienceCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import FlightSearch from '@/components/FlightSearch';
 
 export default function Home() {
   const [experiences, setExperiences] = useState([]);
@@ -114,7 +115,7 @@ export default function Home() {
           <div className="text-center max-w-4xl mx-auto">
             <Badge className="bg-white/20 backdrop-blur-sm text-white border-0 mb-6 px-4 py-2 text-sm">
               <Zap className="w-3 h-3 mr-1" />
-              Discover Amazing Experiences
+              Discover Amazing Experiences & Flights
             </Badge>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
@@ -125,32 +126,11 @@ export default function Home() {
             <p className="text-xl md:text-2xl text-white max-w-2xl mx-auto leading-relaxed mb-12 font-medium">
               Book unforgettable experiences and flights to iconic destinations worldwide with Nexis
             </p>
-            
-            {/* Search Bar */}
-            <div className="max-w-2xl mx-auto">
-              <Card className="bg-white/20 backdrop-blur-sm border-white/30 rounded-2xl shadow-2xl">
-                <CardContent className="p-2">
-                  <form onSubmit={handleSearch} className="flex items-center">
-                    <div className="flex-1 flex items-center px-4">
-                      <Search className="w-5 h-5 text-white mr-3" />
-                      <Input
-                        type="text"
-                        placeholder="Search destinations, experiences, flights..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="bg-transparent border-0 text-white placeholder-white/80 text-lg focus-visible:ring-0 focus-visible:ring-offset-0"
-                      />
-                    </div>
-                    <Button 
-                      type="submit"
-                      className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-xl font-semibold text-lg transition-all"
-                    >
-                      Search
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-            </div>
+          </div>
+
+          {/* Flight Search Component */}
+          <div className="mt-12">
+            <FlightSearch />
           </div>
         </div>
         
@@ -369,8 +349,10 @@ export default function Home() {
                 Explore All Experiences
               </Link>
             </Button>
-            <Button variant="outline" className="px-8 py-4 text-lg border-2 border-white text-white hover:bg-white hover:text-blue-600">
-              Contact Our Team
+            <Button asChild variant="outline" className="px-8 py-4 text-lg border-2 border-white text-white hover:bg-white hover:text-blue-600">
+              <Link href="/flights">
+                Search Flights
+              </Link>
             </Button>
           </div>
         </div>

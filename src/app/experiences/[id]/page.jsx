@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Star, MapPin, Clock, Users, Calendar, Check, ArrowLeft, Shield } from 'lucide-react';
+import { Star, MapPin, Clock, Users, Calendar, Check, ArrowLeft, Shield, Plane, IndianRupee } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -13,6 +13,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import DatePicker from '@/components/DatePicker';
 import TimeSlot from '@/components/TimeSlot';
+import FlightSearch from '@/components/FlightSearch';
+import FlightResults from '@/components/FlightResults';
+import NearbyAirports from '@/components/NearbyAirports';
 
 export default function ExperienceDetail() {
   const params = useParams();
@@ -21,6 +24,10 @@ export default function ExperienceDetail() {
   const [error, setError] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState(null);
+  const [showFlights, setShowFlights] = useState(false);
+  const [flightSearchParams, setFlightSearchParams] = useState(null);
+  const [flights, setFlights] = useState([]);
+  const [flightsLoading, setFlightsLoading] = useState(false);
 
   useEffect(() => {
     if (params.id) {
@@ -48,11 +55,48 @@ export default function ExperienceDetail() {
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
-    setSelectedSlot(null); // Reset slot when date changes
+    setSelectedSlot(null);
   };
 
   const handleSlotSelect = (slot) => {
     setSelectedSlot(slot);
+  };
+
+  const handleFlightSearch = async (searchParams) => {
+    setFlightSearchParams(searchParams);
+    setFlightsLoading(true);
+    setShowFlights(true);
+
+    try {
+      // Convert search params to query string
+      const queryParams = new URLSearchParams(searchParams).toString();
+      const response = await axios.get(`/api/flights/search?${queryParams}`);
+      setFlights(response.data.data.flights);
+    } catch (err) {
+      console.error('Error fetching flights:', err);
+      setFlights([]);
+    } finally {
+      setFlightsLoading(false);
+    }
+  };
+
+  const handleAirportSelect = (airportCode) => {
+    // Set the selected airport as destination and show flight search
+    setFlightSearchParams(prev => ({
+      ...prev,
+      to: airportCode,
+      from: 'DEL' // Default to Delhi, in Phase 7 this will use user's location
+    }));
+    setShowFlights(true);
+  };
+
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price);
   };
 
   if (loading) {
@@ -158,6 +202,48 @@ export default function ExperienceDetail() {
               </CardContent>
             </Card>
 
+            {/* Flight Search Section */}
+            <Card className="mb-8">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Plane className="w-6 h-6 mr-2 text-blue-600" />
+                  Find Flights to This Experience
+                </CardTitle>
+                <CardDescription>
+                  Book your flights along with this experience for a complete travel package
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <FlightSearch 
+                  onSearch={handleFlightSearch}
+                  defaultDestination={experience.location.includes('Delhi') ? 'DEL' : 
+                                    experience.location.includes('Mumbai') ? 'BOM' : 
+                                    experience.location.includes('Bangalore') ? 'BLR' : 'DEL'}
+                />
+              </CardContent>
+            </Card>
+
+            {/* Flight Results */}
+            {showFlights && (
+              <Card className="mb-8">
+                <CardHeader>
+                  <CardTitle>Available Flights</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {flightsLoading ? (
+                    <div className="text-center py-8">
+                      <LoadingSpinner size="medium" text="Searching for flights..." />
+                    </div>
+                  ) : (
+                    <FlightResults 
+                      flights={flights}
+                      searchParams={flightSearchParams}
+                    />
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
             {/* Highlights & Included */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               {/* Highlights */}
@@ -212,14 +298,18 @@ export default function ExperienceDetail() {
             )}
           </div>
 
-          {/* Right Column - Booking Widget */}
-          <div className="lg:col-span-1">
+          {/* Right Column - Booking Widget & Nearby Airports */}
+          <div className="lg:col-span-1 space-y-6">
+            {/* Booking Widget */}
             <div className="sticky top-8">
               <Card>
                 <CardContent className="p-6">
                   <div className="text-center mb-6">
-                    <div className="text-3xl font-bold text-gray-900 mb-2">
-                      ${experience.basePrice}
+                    <div className="flex items-baseline justify-center space-x-1 mb-2">
+                      <IndianRupee className="w-6 h-6 text-gray-600" />
+                      <span className="text-3xl font-bold text-gray-900">
+                        {formatPrice(experience.basePrice).replace('₹', '')}
+                      </span>
                     </div>
                     <CardDescription>per person</CardDescription>
                   </div>
@@ -269,7 +359,7 @@ export default function ExperienceDetail() {
                           }
                         }}
                       >
-                        Book Now - ${selectedSlot.price}
+                        Book Now - {formatPrice(selectedSlot.price)}
                       </Link>
                     </Button>
                   ) : (
@@ -312,6 +402,12 @@ export default function ExperienceDetail() {
                 </CardContent>
               </Card>
             </div>
+
+            {/* Nearby Airports */}
+            <NearbyAirports 
+              location={experience.location}
+              onAirportSelect={handleAirportSelect}
+            />
           </div>
         </div>
       </div>
