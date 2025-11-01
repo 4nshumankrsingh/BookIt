@@ -12,6 +12,7 @@ import Header from '@/components/Header';
 import ExperienceCard from '@/components/ExperienceCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import FlightSearch from '@/components/FlightSearch';
+import UniversalSearch from '@/components/UniversalSearch';
 
 export default function Home() {
   const [experiences, setExperiences] = useState([]);
@@ -128,9 +129,9 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Flight Search Component */}
+          {/* Universal Search Component */}
           <div className="mt-12">
-            <FlightSearch />
+            <UniversalSearch />
           </div>
         </div>
         
@@ -194,11 +195,45 @@ export default function Home() {
               </Card>
             ))}
           </div>
+
+          <div className="text-center mt-8">
+            <Button asChild variant="outline" size="lg">
+              <Link href="/destinations">
+                Explore All Destinations
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Flight Search */}
+      <section className="py-16 bg-gray-50">
+        <div className="nexis-container">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Find Your Perfect Flight</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Search and compare flights from all major airlines
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <FlightSearch />
+          </div>
+
+          <div className="text-center mt-8">
+            <Button asChild variant="outline">
+              <Link href="/flights">
+                Advanced Flight Search
+                <Plane className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
       {/* Featured Experiences */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-background">
         <div className="nexis-container">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 gap-4">
             <div>
@@ -283,7 +318,7 @@ export default function Home() {
       </section>
 
       {/* Trust Indicators */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-gray-50">
         <div className="nexis-container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -352,6 +387,11 @@ export default function Home() {
             <Button asChild variant="outline" className="px-8 py-4 text-lg border-2 border-white text-white hover:bg-white hover:text-blue-600">
               <Link href="/flights">
                 Search Flights
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="px-8 py-4 text-lg border-2 border-white text-white hover:bg-white hover:text-blue-600">
+              <Link href="/destinations">
+                Browse Destinations
               </Link>
             </Button>
           </div>

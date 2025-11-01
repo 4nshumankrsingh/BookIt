@@ -10,16 +10,16 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const navigationItems = [
-    { name: 'Experiences', href: '/', icon: Globe },
-    { name: 'Destinations', href: '/destinations', icon: MapPin },
+    { name: 'Home', href: '/', icon: Compass },
     { name: 'Flights', href: '/flights', icon: Plane },
+    { name: 'Destinations', href: '/destinations', icon: MapPin },
+    { name: 'Experiences', href: '/experiences', icon: Globe },
   ];
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      // Search logic will be implemented
-      console.log('Searching for:', searchQuery);
+      window.location.href = `/destinations?search=${encodeURIComponent(searchQuery)}`;
     }
   };
 
