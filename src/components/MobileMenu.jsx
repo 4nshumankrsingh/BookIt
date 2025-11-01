@@ -1,80 +1,107 @@
 'use client';
+import { useState } from 'react';
 import Link from 'next/link';
+import { Menu, X, User, LogOut, Compass, Plane, MapPin, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, User, Globe, MapPin, Plane, HelpCircle } from 'lucide-react';
 
-export default function MobileMenu() {
+export default function MobileMenu({ user, onLogout }) {
+  const [isOpen, setIsOpen] = useState(false);
+
   const navigationItems = [
-    { name: 'Experiences', href: '/', icon: Globe },
-    { name: 'Destinations', href: '/destinations', icon: MapPin },
+    { name: 'Home', href: '/', icon: Compass },
     { name: 'Flights', href: '/flights', icon: Plane },
-    { name: 'Help Center', href: '/help', icon: HelpCircle },
+    { name: 'Destinations', href: '/destinations', icon: MapPin },
+    { name: 'Experiences', href: '/experiences', icon: Globe },
   ];
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="lg:hidden">
-          <Menu className="w-5 h-5" />
-          <span className="sr-only">Toggle menu</span>
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="right" className="w-full sm:max-w-md">
-        <SheetHeader className="text-left pb-6">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-linear-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">N</span>
-            </div>
-            <div>
-              <SheetTitle className="text-xl font-bold bg-linear-to-br from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Nexis
-              </SheetTitle>
-              <p className="text-sm text-muted-foreground">Travel & Experiences</p>
+    <div className="lg:hidden">
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => setIsOpen(!isOpen)}
+        className="relative"
+      >
+        {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+      </Button>
+
+      {isOpen && (
+        <div className="fixed inset-0 top-16 z-50 bg-background/95 backdrop-blur-sm">
+          <div className="container mx-auto px-4 py-6">
+            {/* Navigation Items */}
+            <nav className="space-y-2 mb-8">
+              {navigationItems.map((item) => (
+                <Button
+                  key={item.name}
+                  asChild
+                  variant="ghost"
+                  className="w-full justify-start px-4 py-3 text-base"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Link href={item.href} className="flex items-center space-x-3">
+                    {item.icon && <item.icon className="w-5 h-5" />}
+                    <span>{item.name}</span>
+                  </Link>
+                </Button>
+              ))}
+            </nav>
+
+            {/* User Section */}
+            <div className="border-t border-border pt-6">
+              {user ? (
+                <div className="space-y-3">
+                  <div className="px-4 py-2 text-sm text-muted-foreground">
+                    Signed in as <span className="font-medium text-foreground">{user.email}</span>
+                  </div>
+                  <Button
+                    asChild
+                    variant="ghost"
+                    className="w-full justify-start px-4 py-3 text-base"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Link href="/profile" className="flex items-center space-x-3">
+                      <User className="w-5 h-5" />
+                      <span>Profile</span>
+                    </Link>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start px-4 py-3 text-base text-red-600 hover:text-red-700 hover:bg-red-50"
+                    onClick={() => {
+                      onLogout();
+                      setIsOpen(false);
+                    }}
+                  >
+                    <LogOut className="w-5 h-5" />
+                    <span>Logout</span>
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="w-full py-3 text-base"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Link href="/auth/signin" className="flex items-center justify-center space-x-2">
+                      <User className="w-5 h-5" />
+                      <span>Sign In</span>
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    className="w-full py-3 text-base bg-blue-600 text-white hover:bg-blue-700"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Link href="/auth/signup">Get Started</Link>
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
-        </SheetHeader>
-
-        <nav className="space-y-2">
-          {navigationItems.map((item) => {
-            const IconComponent = item.icon;
-            return (
-              <Button
-                key={item.name}
-                asChild
-                variant="ghost"
-                className="w-full justify-start text-base p-4 h-auto hover:bg-accent"
-              >
-                <Link href={item.href} className="flex items-center space-x-3">
-                  <IconComponent className="w-5 h-5 text-blue-600" />
-                  <span>{item.name}</span>
-                </Link>
-              </Button>
-            );
-          })}
-        </nav>
-
-        <div className="pt-6 border-t border-border space-y-3">
-          <Button asChild className="w-full bg-linear-to-br from-blue-600 to-purple-600 text-white">
-            <Link href="/auth/signin" className="flex items-center space-x-2">
-              <User className="w-4 h-4" />
-              <span>Sign In</span>
-            </Link>
-          </Button>
-          <Button asChild variant="outline" className="w-full border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
-            <Link href="/auth/signup">Create Account</Link>
-          </Button>
         </div>
-
-        <div className="pt-6 border-t border-border">
-          <p className="text-sm text-muted-foreground text-center">
-            Need help?{' '}
-            <Link href="/contact" className="text-blue-600 hover:underline font-medium">
-              Contact Support
-            </Link>
-          </p>
-        </div>
-      </SheetContent>
-    </Sheet>
+      )}
+    </div>
   );
 }

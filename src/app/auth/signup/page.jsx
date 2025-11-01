@@ -39,17 +39,57 @@ export default function SignUp() {
       return;
     }
 
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      setLoading(false);
+      return;
+    }
+
     try {
-      // TODO: Integrate with Better Auth
-      console.log('Sign up attempt:', formData);
-      
-      // Simulate API call
+      // Simulate API call - in real app, this would be Better Auth integration
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // For demo purposes, redirect to home
+      // For demo purposes, create a user object and store in localStorage
+      const userData = {
+        id: '1',
+        email: formData.email,
+        name: formData.name,
+        createdAt: new Date().toISOString()
+      };
+      
+      localStorage.setItem('nexis-user', JSON.stringify(userData));
+      
+      // Redirect to home
       router.push('/');
+      router.refresh();
     } catch (err) {
       setError('Failed to create account. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    setLoading(true);
+    setError('');
+    
+    try {
+      // TODO: Implement Google OAuth with Better Auth
+      // For now, simulate successful Google sign up
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const userData = {
+        id: '2',
+        email: 'user@gmail.com',
+        name: 'Google User',
+        createdAt: new Date().toISOString()
+      };
+      
+      localStorage.setItem('nexis-user', JSON.stringify(userData));
+      router.push('/');
+      router.refresh();
+    } catch (err) {
+      setError('Google sign up failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -103,7 +143,7 @@ export default function SignUp() {
                     placeholder="Enter your full name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="pl-10 pr-4 py-3"
+                    className="pl-10 pr-4 py-3 w-full"
                     required
                   />
                 </div>
@@ -122,7 +162,7 @@ export default function SignUp() {
                     placeholder="Enter your email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="pl-10 pr-4 py-3"
+                    className="pl-10 pr-4 py-3 w-full"
                     required
                   />
                 </div>
@@ -138,11 +178,12 @@ export default function SignUp() {
                     id="password"
                     name="password"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Create a password"
+                    placeholder="Create a password (min. 6 characters)"
                     value={formData.password}
                     onChange={handleChange}
-                    className="pl-10 pr-12 py-3"
+                    className="pl-10 pr-12 py-3 w-full"
                     required
+                    minLength={6}
                   />
                   <Button
                     type="button"
@@ -173,7 +214,7 @@ export default function SignUp() {
                     placeholder="Confirm your password"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="pl-10 pr-12 py-3"
+                    className="pl-10 pr-12 py-3 w-full"
                     required
                   />
                   <Button
@@ -231,12 +272,10 @@ export default function SignUp() {
 
             <Button
               variant="outline"
-              className="w-full py-3 text-base"
+              className="w-full py-3 text-base border-gray-300 hover:bg-gray-50"
               type="button"
-              onClick={() => {
-                // TODO: Implement Google OAuth
-                console.log('Google OAuth');
-              }}
+              onClick={handleGoogleSignUp}
+              disabled={loading}
             >
               <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>

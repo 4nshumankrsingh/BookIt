@@ -1,4 +1,3 @@
-
 export const authConfig = {
   // Required configuration
   secret: process.env.BETTER_AUTH_SECRET,
@@ -22,6 +21,10 @@ export const authConfig = {
       google: {
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        scope: ["email", "profile"],
+        authorizationUrl: "https://accounts.google.com/o/oauth2/v2/auth",
+        tokenUrl: "https://oauth2.googleapis.com/token",
+        userInfoUrl: "https://www.googleapis.com/oauth2/v3/userinfo",
       }
     }),
   },
@@ -73,8 +76,59 @@ export const authConfig = {
   }
 };
 
-// ... (rest of the helper functions remain the same)
-// [Previous helper functions: isAuthenticated, getCurrentUser, signUp, signIn, etc.]
-// They remain unchanged from the previous version
+// Helper function to check if user is authenticated
+export async function isAuthenticated(request) {
+  // This would typically check the session cookie or token
+  // For now, we'll return a mock implementation
+  return new Promise((resolve) => {
+    resolve({ isAuthenticated: false, user: null });
+  });
+}
+
+// Helper function to get current user
+export async function getCurrentUser(request) {
+  // This would typically get user from session
+  // For now, we'll return a mock implementation
+  return new Promise((resolve) => {
+    resolve(null);
+  });
+}
+
+// Sign up function
+export async function signUp(email, password, name) {
+  // This would integrate with Better Auth
+  // For now, we'll return a mock implementation
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ success: true, user: { id: '1', email, name } });
+    }, 1000);
+  });
+}
+
+// Sign in function
+export async function signIn(email, password) {
+  // This would integrate with Better Auth
+  // For now, we'll return a mock implementation
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (email && password) {
+        resolve({ success: true, user: { id: '1', email, name: email.split('@')[0] } });
+      } else {
+        reject(new Error('Invalid credentials'));
+      }
+    }, 1000);
+  });
+}
+
+// Sign out function
+export async function signOut() {
+  // This would clear the session
+  // For now, we'll return a mock implementation
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ success: true });
+    }, 500);
+  });
+}
 
 export default authConfig;

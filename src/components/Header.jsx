@@ -1,13 +1,18 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, MapPin, User, Plane, Globe, Compass } from 'lucide-react';
+import { useRouter, usePathname } from 'next/navigation';
+import { Search, MapPin, User, Plane, Globe, Compass, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import MobileMenu from './MobileMenu';
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const navigationItems = [
     { name: 'Home', href: '/', icon: Compass },
@@ -16,11 +21,37 @@ export default function Header() {
     { name: 'Experiences', href: '/experiences', icon: Globe },
   ];
 
+  // Check authentication status
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        // In a real app, this would be an API call to verify session
+        const userData = localStorage.getItem('nexis-user');
+        if (userData) {
+          setUser(JSON.parse(userData));
+        }
+      } catch (error) {
+        console.error('Auth check error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, [pathname]);
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      window.location.href = `/destinations?search=${encodeURIComponent(searchQuery)}`;
+      router.push(`/destinations?search=${encodeURIComponent(searchQuery)}`);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('nexis-user');
+    setUser(null);
+    router.push('/');
+    router.refresh();
   };
 
   return (
@@ -71,22 +102,49 @@ export default function Header() {
 
           {/* User Actions */}
           <div className="hidden lg:flex items-center space-x-4 shrink-0 ml-8">
-            <Button 
-              asChild 
-              variant="ghost" 
-              className="text-foreground/80 hover:text-foreground hover:bg-accent px-4 py-2"
-            >
-              <Link href="/auth/signin" className="flex items-center space-x-2">
-                <User className="w-4 h-4" />
-                <span>Sign In</span>
-              </Link>
-            </Button>
-            <Button 
-              asChild 
-              className="bg-linear-to-br from-blue-600 to-purple-600 text-white hover:shadow-lg transition-all duration-200 px-6 py-2"
-            >
-              <Link href="/auth/signup">Get Started</Link>
-            </Button>
+            {loading ? (
+              <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+            ) : user ? (
+              <div className="flex items-center space-x-4">
+                <Button 
+                  asChild 
+                  variant="ghost" 
+                  className="text-foreground/80 hover:text-foreground hover:bg-accent px-4 py-2"
+                >
+                  <Link href="/profile" className="flex items-center space-x-2">
+                    <User className="w-4 h-4" />
+                    <span>Profile</span>
+                  </Link>
+                </Button>
+                <Button 
+                  variant="ghost"
+                  onClick={handleLogout}
+                  className="text-foreground/80 hover:text-foreground hover:bg-accent px-4 py-2 flex items-center space-x-2"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Logout</span>
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-4">
+                <Button 
+                  asChild 
+                  variant="ghost" 
+                  className="text-foreground/80 hover:text-foreground hover:bg-accent px-4 py-2"
+                >
+                  <Link href="/auth/signin" className="flex items-center space-x-2">
+                    <User className="w-4 h-4" />
+                    <span>Sign In</span>
+                  </Link>
+                </Button>
+                <Button 
+                  asChild 
+                  className="bg-blue-600 text-white hover:bg-blue-700 transition-all duration-200 px-6 py-2"
+                >
+                  <Link href="/auth/signup">Get Started</Link>
+                </Button>
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu */}
@@ -99,7 +157,7 @@ export default function Header() {
             >
               <Search className="w-5 h-5" />
             </Button>
-            <MobileMenu />
+            <MobileMenu user={user} onLogout={handleLogout} />
           </div>
         </div>
 
